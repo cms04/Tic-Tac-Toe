@@ -36,6 +36,8 @@ class MainWindow : public QMainWindow {
 
         void on_actionReset_Scores_triggered();
 
+        void on_actionClose_triggered();
+
     private:
         Ui::MainWindow *ui;
         Field *field;
@@ -44,5 +46,6 @@ class MainWindow : public QMainWindow {
         void showWinningMessage();
         void resetField();
         void updateScore();
+        void showFullMessage();
 };
 #endif // MAINWINDOW_H

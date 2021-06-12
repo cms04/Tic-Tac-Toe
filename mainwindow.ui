@@ -271,6 +271,7 @@
      <string>Tic Tac Toe</string>
     </property>
     <addaction name="actionReset_Scores"/>
+    <addaction name="actionClose"/>
    </widget>
    <addaction name="menuTic_Tac_Toe"/>
   </widget>
@@ -278,6 +279,11 @@
   <action name="actionReset_Scores">
    <property name="text">
     <string>Reset Scores</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>Close</string>
    </property>
   </action>
  </widget>

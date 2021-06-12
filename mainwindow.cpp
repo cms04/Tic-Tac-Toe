@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+#include <QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow) {
@@ -20,10 +22,44 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::showWinningMessage() {
-    ui->statusbar->showMessage("Player " + QString::number(current_player + 1) + " won!");
-    updateScore();
-    updatePlayer();
-    resetField();
+    QMessageBox msg;
+    msg.setText("Player " + QString::number(current_player + 1) + " won!");
+    msg.setStandardButtons(QMessageBox::Close | QMessageBox::Abort | QMessageBox::Ok);
+    msg.setDefaultButton(QMessageBox::Ok);
+    msg.setButtonText(QMessageBox::Abort, "Reset All");
+    msg.setButtonText(QMessageBox::Ok, "New Game");
+    switch (msg.exec()) {
+        case QMessageBox::Close:
+            this->close();
+            break;
+        case QMessageBox::Abort:
+            this->on_actionReset_Scores_triggered();
+            break;
+        default:
+            updateScore();
+            updatePlayer();
+            resetField();
+    }
+}
+
+void MainWindow::showFullMessage() {
+    QMessageBox msg;
+    msg.setText("Nobody won.");
+    msg.setStandardButtons(QMessageBox::Close | QMessageBox::Abort | QMessageBox::Ok);
+    msg.setDefaultButton(QMessageBox::Ok);
+    msg.setButtonText(QMessageBox::Abort, "Reset All");
+    msg.setButtonText(QMessageBox::Ok, "New Game");
+    switch (msg.exec()) {
+        case QMessageBox::Close:
+            this->close();
+            break;
+        case QMessageBox::Abort:
+            this->on_actionReset_Scores_triggered();
+            break;
+        default:
+            resetField();
+            current_player = 0;
+    }
 }
 
 void MainWindow::updateScore() {
@@ -58,8 +94,8 @@ void MainWindow::on_b00_clicked() {
             return;
         }
         if (field->isFull()) {
-            ui->statusbar->showMessage("Nobody won!");
-            resetField();
+            showFullMessage();
+            return;
         }
         updatePlayer();
     }
@@ -74,8 +110,8 @@ void MainWindow::on_b01_clicked() {
             return;
         }
         if (field->isFull()) {
-            ui->statusbar->showMessage("Nobody won!");
-            resetField();
+            showFullMessage();
+            return;
         }
         updatePlayer();
     }
@@ -90,8 +126,8 @@ void MainWindow::on_b02_clicked() {
             return;
         }
         if (field->isFull()) {
-            ui->statusbar->showMessage("Nobody won!");
-            resetField();
+            showFullMessage();
+            return;
         }
         updatePlayer();
     }
@@ -106,8 +142,8 @@ void MainWindow::on_b10_clicked() {
             return;
         }
         if (field->isFull()) {
-            ui->statusbar->showMessage("Nobody won!");
-            resetField();
+            showFullMessage();
+            return;
         }
         updatePlayer();
     }
@@ -122,8 +158,8 @@ void MainWindow::on_b11_clicked() {
             return;
         }
         if (field->isFull()) {
-            ui->statusbar->showMessage("Nobody won!");
-            resetField();
+            showFullMessage();
+            return;
         }
         updatePlayer();
     }
@@ -138,8 +174,8 @@ void MainWindow::on_b12_clicked() {
             return;
         }
         if (field->isFull()) {
-            ui->statusbar->showMessage("Nobody won!");
-            resetField();
+            showFullMessage();
+            return;
         }
         updatePlayer();
     }
@@ -154,8 +190,8 @@ void MainWindow::on_b20_clicked() {
             return;
         }
         if (field->isFull()) {
-            ui->statusbar->showMessage("Nobody won!");
-            resetField();
+            showFullMessage();
+            return;
         }
         updatePlayer();
     }
@@ -170,8 +206,8 @@ void MainWindow::on_b21_clicked() {
             return;
         }
         if (field->isFull()) {
-            ui->statusbar->showMessage("Nobody won!");
-            resetField();
+            showFullMessage();
+            return;
         }
         updatePlayer();
     }
@@ -186,8 +222,8 @@ void MainWindow::on_b22_clicked() {
             return;
         }
         if (field->isFull()) {
-            ui->statusbar->showMessage("Nobody won!");
-            resetField();
+            showFullMessage();
+            return;
         }
         updatePlayer();
     }
@@ -198,5 +234,9 @@ void MainWindow::on_actionReset_Scores_triggered() {
     current_player = 0;
     ui->label_points1->setText("0");
     ui->label_points2->setText("0");
+}
+
+void MainWindow::on_actionClose_triggered() {
+    this->close();
 }
 
