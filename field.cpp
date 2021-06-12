@@ -17,10 +17,7 @@ void Field::reset() {
 }
 
 bool Field::setField(size_t y, size_t x, uint8_t p) {
-    if (y < 0 || y > 2 || x < 0 || x > 2 || p != 0 || p != 1) {
-        return false;
-    }
-    if (this->data[y][x] == 2) {
+    if (y > 2 || x > 2 || p > 1 || this->data[y][x] != 2) {
         return false;
     }
     this->data[y][x] = p;
@@ -28,7 +25,7 @@ bool Field::setField(size_t y, size_t x, uint8_t p) {
 }
 
 bool Field::check(uint8_t p) {
-    if (p != 0 || p != 1) {
+    if (p > 1) {
         return false;
     }
     for (size_t i = 0; i < 3; i++) {
@@ -49,7 +46,7 @@ bool Field::check(uint8_t p) {
 }
 
 char Field::getRepresentation(size_t y, size_t x) {
-    if (y < 0 || y > 2 || x < 0 || y > 2) {
+    if (y > 2 || x > 2) {
         return '\0';
     }
     switch (this->data[y][x]) {
@@ -60,4 +57,15 @@ char Field::getRepresentation(size_t y, size_t x) {
         default:
             return ' ';
     }
+}
+
+bool Field::isFull() {
+    for (size_t i = 0; i < 3; i++) {
+        for (size_t j = 0; j < 3; j++) {
+            if (this->data[i][j] == 2) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

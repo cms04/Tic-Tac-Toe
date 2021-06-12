@@ -270,10 +270,16 @@
     <property name="title">
      <string>Tic Tac Toe</string>
     </property>
+    <addaction name="actionReset_Scores"/>
    </widget>
    <addaction name="menuTic_Tac_Toe"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionReset_Scores">
+   <property name="text">
+    <string>Reset Scores</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
